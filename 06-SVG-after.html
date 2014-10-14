@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>06 | SVG</title>
+</head>
+<body>
+    <h1>Skalierbare Vektorgrafik</h1>
+    <svg>
+        <circle fill="red" cx="100" cy="100" r="50"></circle>
+    </svg>
+
+    <svg viewBox="0 0 400 400" width="400" height="400">
+        <defs>
+            <radialGradient id="colorful">
+                <stop stop-color="magenta" offset="0.2"></stop>
+                <stop stop-color="yellow" offset="0.8"></stop>
+            </radialGradient>
+        </defs>
+        <circle fill="url(#colorful)" cx="200" cy="200" r="200"></circle>
+        <text x="200" y="200" fill="white" font-size="24pt" font-family="Segoe UI" text-anchor="middle">Das ist SVG!</text>
+        <path d="M 200 200 L 200 100 M 200 200 L 200 300 M 200 200 L 100 200 M 200 200 L 300 200" stroke="black" stroke-width="12"></path>
+    </svg>
+    <svg width="600" height="600">
+        <defs>
+            <filter id="weichzeichnen">
+                <feGaussianBlur stdDeviation="5"></feGaussianBlur>
+            </filter>
+        </defs>
+        <image xlink:href="media/meer.jpg" width="600" height="600" x="0" y="0" filter="url(#weichzeichnen)"></image>
+    </svg>
+
+    <img src="media/halloween.svg" />
+
+</body>
+</html>

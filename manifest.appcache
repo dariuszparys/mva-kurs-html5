@@ -1,0 +1,12 @@
+CACHE MANIFEST
+
+# version 9
+
+CACHE:
+/scripts/online.js
+
+FALLBACK:
+/media/html5.png /media/html5-no-network.png
+
+NETWORK:
+*

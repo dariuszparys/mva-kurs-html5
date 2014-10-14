@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>09 | Offline Applications</title>
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+            printMessage("navigator.onLine = " + navigator.onLine);
+
+            document.body.ononline = checkOnlineConnection;
+            document.body.onoffline = checkOnlineConnection;
+
+        });
+
+        function checkOnlineConnection(evt) {
+            if (evt.type == "online") {
+                printMessage("Browser ist Online!");
+            } else if (evt.type == "offline") {
+                printMessage("O F F L I N E ! ! !");
+            }
+        }
+
+        function printMessage(message) {
+            var element = document.querySelector("h2");
+            element.innerText = message;
+        }
+
+    </script>
+</head>
+<body>
+    <h1>Online Status abfragen</h1>
+
+    <h2>Bin ich online?</h2>
+</body>
+</html>

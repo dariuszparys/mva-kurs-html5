@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- This is an example TTML file to exercise every feature of the proposed subset.
+  -->
+  
+<tt xml:lang="en-us"  
+    xmlns="http://www.w3.org/ns/ttml"
+    xmlns:s='http://www.w3.org/ns/ttml#styling'
+    xmlns:p='http://www.w3.org/ns/ttml#parameter'
+    p:frameRate="32"
+    p:profile="http://www.w3.org/TR/profile/online-delivery"
+    >
+   
+<head>
+      
+	<styling>
+
+		<!-- A style with 'LARGE' text size and center alignment-->
+		<style xml:id="topMidStyle" s:fontSize="150%" s:textAlign="center"  s:textBackgroundColor="#000000ff" s:color="#ff0000ff" s:origin='20% 10%' s:extent='60% 10%'/>
+
+		<!-- A typical transparent region with centered text that has an outline -->
+		<style xml:id="bottomMidStyle" s:textAlign="center" s:textOutline="#000000ff 5%" s:backgroundColor="#00000000" s:color="#ffffffff" s:origin='15% 75%' s:extent='60% 15%'/>
+
+		<!-- A typical transparent region with centered text that has an outline (red here so we can see it in the ADK player) -->
+		<style xml:id="rollupStyle" s:fontSize="100%" s:textAlign="left" s:textOutline="#000000ff 10%" s:backgroundColor="#00000000" s:color="#ffffffff" s:origin='10% 55%' s:extent='80% 35%'/>
+
+		<!-- One of the 8 font style required by the FCC -->
+		<style xml:id="defaultFont" s:fontFamily="casual"/>
+		<!-- Additional font strings not defined in TTML 1.0 casual, cursive, smallcap -->
+		<style xml:id="fccFont" s:fontFamily="smallcap"/>
+
+		<!-- the various 'semantic' visual effects -->
+		<style xml:id="emphasis1" s:fontStyle="italic"/>
+		<!-- NB fontWeight is not part of the proposed profile, so its OK to ignore  this but its included here to show how the profile feature works-->
+		<style xml:id="emphasis2" s:textDecoration="underline" />
+		<style xml:id="emphasis3" s:color="#ff0000ff"/>
+		
+    </styling>
+	
+    <layout>
+		<!-- A region that models the typical safe titiling ares -->
+		<region xml:id="safeTitleRegion" begin='00:00:37.000' end='00:00:40.000' style="safeTitleStyle"/>
+
+		<!-- typical 'pop up' type region -->
+		<region xml:id="bottomMid" begin='00:00:00.000' end='00:01:30.000' style="bottomMidStyle"/>
+
+		<!-- typical 'pop up' type region -->
+		<region xml:id="topMid" begin='00:00:00.000' end='00:01:35.000' style="topMidStyle"/>
+
+		<!-- A rollup type region -->
+		<region xml:id="rollup" begin='00:00:00.000' end='00:01:35.000' style="rollupStyle"/>
+	</layout>
+</head>
+
+<body>
+	<!-- Note profile does not support divs in divs, or spans in spans -->
+	<div style="defaultFont">
+	<!-- Note only hh:mm:ss.frac style times are allowed.Need to add frames example.-->
+	
+	<!--<p region="topMid" begin='00:00:05.000' end='00:00:30.000'>
+	<span style="emphasis2">Paint-on Captions </span>
+	</p>-->
+	
+	<p region='rollup' begin='00:00:05.000' end='00:00:20.000'>
+		<span s:backgroundColor="#000000ff" begin='00:00:00.000'>This </span>
+		<span s:backgroundColor="#000000ff" begin='00:00:00.250'>are </span>
+		<span s:backgroundColor="#000000ff" begin='00:00:00.500'>English </span>
+		<span s:backgroundColor="#000000ff" begin='00:00:00.750'>Subtitles </span>
+		<span s:backgroundColor="#000000ff" s:color="#ff0000ff" begin='00:00:01.000'>, yeah!</span>		
+	</p>
+
+	</div>
+
+</body>								
+</tt>

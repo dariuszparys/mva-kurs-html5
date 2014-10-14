@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>05 | Canvas</title>
+</head>
+<body>
+
+    <canvas id="zeichenbrett" width="600" height="600">
+        Dein Browser unterstütz kein HTML5 Canvas Element!
+    </canvas>
+
+    <button id="convert">Convert</button>
+
+    <img id="target" src="#" />
+
+    <script>
+
+        // Canvas holen und Rechteck zeichnen
+        var cc = document.getElementById("zeichenbrett").getContext("2d");
+        cc.fillRect(10, 10, 590, 590);
+
+        // Farbverlauf zeichen
+        var gradient = cc.createLinearGradient(10, 10, 590, 590);
+        gradient.addColorStop(0, "yellow");
+        gradient.addColorStop(1, "magenta");
+        cc.fillStyle = gradient;
+        cc.fillRect(10, 10, 590, 590);
+
+        // Text ausgeben
+        cc.fillStyle = "white";
+        cc.textBaseline = "middle";
+        cc.font = "30px Segoe UI";
+        cc.fillText("MVA Kurs HTML5 & CSS3", 50, 50);
+
+        // Pfad zeichnen
+        cc.strokeStyle = "white";
+        cc.beginPath();
+        cc.moveTo(300, 300);
+        cc.lineTo(300, 100);
+        cc.lineTo(100, 300);
+        cc.lineTo(500, 300);
+        cc.lineTo(300, 500);
+        cc.closePath();
+        cc.stroke();
+
+        // Grafik ausgeben
+        var image = new Image(256, 256);
+        image.onload = function () {
+            // Komposition auswählen
+            cc.drawImage(this, 50, 200);
+        }
+        image.src = "media/html5.png";
+
+        var button = document.getElementById("convert");
+        button.addEventListener("click", function () {
+            var picture = cc.canvas.toDataURL();
+            var targetElement = document.getElementById("target");
+            targetElement.src = picture;
+        });
+
+    </script>
+
+</body>
+</html>

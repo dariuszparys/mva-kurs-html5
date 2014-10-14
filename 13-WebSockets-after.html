@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>13 | Web Sockets</title>
+</head>
+<body>
+    <h1>Web Socket Demo</h1>
+    <input type="text" id="what" />
+    <button id="send">Send</button>
+    <div id="output"></div>
+
+    <script>
+
+        var socket = new WebSocket("ws://localhost:8080");
+
+        socket.onopen = function (evt) {
+            printMessage("WebSocket open");
+        }
+
+        socket.onmessage = function (evt) {
+            printMessage("WebSocket received " + evt.data);
+        }
+
+        socket.onerror = function (evt) {
+            printMessage("WebSocket error " + evt);
+        }
+
+        socket.onclose = function (evt) {
+            printMessage("WebSocket closed");
+        }
+
+        var inputElement = document.querySelector("#what");
+        var buttonElement = document.querySelector("#send");
+        var outputElement = document.querySelector("#output");
+
+        buttonElement.addEventListener("click", sendMessage);
+
+        function sendMessage() {
+            var message = inputElement.value;
+            socket.send(message);
+        }
+
+        function printMessage(message) {
+            var content = outputElement.innerHTML;
+            content += "<br>" + message;
+            outputElement.innerHTML = content;
+        }
+    </script>
+</body>
+</html>

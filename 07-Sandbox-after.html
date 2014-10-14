@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>07 | Sandbox</title>
+</head>
+<body>
+    <h1>IFrame Sandkasten</h1>
+
+    <script>
+        if ("sandbox" in document.createElement("iframe")) {
+            alert('sandbox vorhanden');
+        } else {
+            alert('keine Sandbox Möglichkeit');
+        }
+    </script>
+
+    <iframe sandbox="allow-same-origin allow-scripts allow-forms allow-top-navigation"
+            src="http://www.writeline.io"
+            width="480"
+            height="500"></iframe>
+
+</body>
+</html>

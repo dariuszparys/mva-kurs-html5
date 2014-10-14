@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Form Elemente</title>
+    <style>
+        div {
+            margin: 20px;
+        }
+
+        label {
+            width: 200px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <h1>Gewinnspiel</h1>
+    <form id="gewinnspiel">
+        <fieldset>
+            <div>
+                <label for="email">Email:</label>
+                <input id="email" type="email" required placeholder="a@b.com" list="beispielEmailAdressen" />
+                <datalist id="beispielEmailAdressen">
+                    <option value="dparys@microsoft.com" label="Dariusz (Microsoft)"></option>
+                    <option value="test@aol.com" label="Hacker"></option>
+                </datalist>
+            </div>
+            <div>
+                <label for="number">Alter:</label>
+                <input id="number" type="number" min="18" max="150" />
+            </div>
+            <div>
+                <label for="range">Bewertung:</label>
+                <input id="range" type="range" min="1" max="5" value="3" />
+            </div>
+            <div>
+                <label for="url">Homepage:</label>
+                <input id="url" type="url" placeholder="http://writeline.io" autofocus />
+            </div>
+
+            <div>
+                <input type="submit" />
+            </div>
+        </fieldset>
+    </form>
+
+    <div>Irgendwas...</div>
+    <div><input id="tel" type="tel" form="gewinnspiel" /></div>
+</body>
+</html>

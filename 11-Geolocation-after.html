@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <!-- Berlin 52.516071 13.376980 -->
+    <title>11 | Geolocation API</title>
+    <script charset="UTF-8" type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
+</head>
+<body>
+    <h1>Geolocation API</h1>
+    <button id="locateMe">Benutzer finden</button>
+    <ul id="stats"></ul>
+    <div id="output"></div>
+
+    <script>
+
+        document.querySelector("#locateMe").addEventListener("click", locateMe);
+
+        function locateMe() {
+            navigator.geolocation.watchPosition(function (position) {
+                clearPositionStats();
+                showPositionOnMap(position);
+                showPositionStats(position);
+            });
+        }
+    </script>
+
+    <script>
+
+        var bingMaps;
+
+        function showPositionStats(position) {
+            print("timestamp", position.timestamp);
+            print("latitude", position.coords.latitude);
+            print("longitude", position.coords.longitude);
+            print("alititude", position.coords.altitude);
+            print("accuracy", position.coords.accuracy);
+            print("alititudeAccuracy", position.coords.altitudeAccuracy);
+            print("heading", position.coords.heading);
+            print("speed", position.coords.speed);
+        }
+
+        function clearPositionStats() {
+            document.querySelector("#stats").innerHTML = "";
+        }
+
+        function print(key, value) {
+            var ulElement = document.querySelector("#stats");
+            var li = document.createElement("li");
+            li.innerText = key + ": " + value;
+            ulElement.appendChild(li);
+        }
+
+        function showPositionOnMap(position) {
+            var pin = new Microsoft.Maps.Pushpin({
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude
+            });
+
+            if (!bingMaps) {
+                bingMaps = new Microsoft.Maps.Map(document.querySelector("#output"), getBingMapsOptions());
+            }
+
+            var viewOptions = {
+                center: {
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude
+                },
+                zoom: 18,
+                mapTypeId: "auto"
+            }
+
+            bingMaps.setView(viewOptions);
+            bingMaps.entities.push(pin);
+
+        }
+
+        function getBingMapsOptions() {
+            return {
+                credentials: "AjLuWYVddvUidYJeX465z2NS-hRAomF-0Xucy-kLKxmJRCLzAPxjHLF5VFhgb8sV",
+                mapTypeId: Microsoft.Maps.MapTypeId.aerial,
+                height: 590,
+                width: 590
+            };
+        }
+
+    </script>
+</body>
+</html>

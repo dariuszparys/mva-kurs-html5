@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>12 | Web Worker</title>
+</head>
+<body>
+    <h1>Web Worker</h1>
+
+    <ul id="list"></ul>
+
+    <script>
+
+        //var a = 0;
+        //var b = 0;
+        //for (var n = 0; n < 10000; n++) {
+        //    for (var i = 0; i < 10000; i++) {
+        //        Math.ceil(n);
+        //        Math.abs(n);
+        //        Math.asin(n);
+        //    }
+        //    addNumber(n);
+        //}
+
+        var worker = new Worker("rechne.js");
+        worker.onmessage = function (message) {
+            addNumber(message.data);
+        }
+
+        worker.postMessage(1000);
+
+        function addNumber(number) {
+            var li = document.createElement("li");
+            li.innerText = number;
+            document.querySelector("#list").appendChild(li);
+        }
+    </script>
+
+</body>
+</html>

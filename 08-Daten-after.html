@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>08 | Datenspeicher</title>
+    <style>
+        fieldset > div {
+            margin: 20px;
+        }
+
+        label {
+            width: 200px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Datenspeicher</h1>
+    <h2>IndexedDB</h2>
+    <fieldset>
+        <div>
+            <label for="wert">Wert</label>
+            <input type="text" id="wert" />
+        </div>
+        <div>
+            <button id="actionStore">Speichern</button>
+            <button id="actionLoad">Laden</button>
+        </div>
+    </fieldset>
+
+    <script>
+
+        function store(element) {            
+            sessionStorage.wert = element.value;
+        }
+
+        function load(element) {
+            element.value = sessionStorage.wert;
+        }
+
+    </script>
+
+    <script>
+
+        var idb = {};
+        idb.db = null;
+
+        idb.open = function () {
+            var request = indexedDB.open("mva");
+
+            request.onerror = function (evt) {
+                alert("idb.open error");
+            }
+
+            request.onsuccess = function (evt) {
+                alert("idb.open success");
+                idb.db = evt.target.result;
+            }
+
+            request.onupgradeneeded = function (evt) {
+                alert("idb.open upgradeneeded");
+                var db = evt.target.result;
+                if (!db.objectStoreNames.contains("mvakurs")) {
+                    var store = db.createObjectStore("mvakurs", {
+                        keyPath: 'key',
+                        autoIncrement: true
+                    });
+                }
+            }
+        }
+        idb.save = function (item) {
+            var transaction = idb.db.transaction(["mvakurs"], "readwrite");
+            var store = transaction.objectStore("mvakurs");
+            var request = store.put(item);
+            request.onerror = function () {
+                alert("idb.save onerror");
+            }
+            request.onsuccess = function () {
+                alert("idb.save onsuccess");
+                alert(this.result);
+            }
+        };
+        idb.load = function (element) {
+            var transaction = idb.db.transaction(["mvakurs"], "readonly");
+            var store = transaction.objectStore("mvakurs");
+            var request = store.get(3);
+            request.onsuccess = function () {
+                alert("idb.load onsuccess");
+                element.value = this.result.wert;
+            }
+        };
+
+        idb.open();
+
+
+    </script>
+
+
+    <script>
+
+        document.getElementById("actionStore").addEventListener("click", function () {
+            var target = document.getElementById("wert");
+            //store(target);
+            idb.save({ wert: target.value });
+        });
+
+        document.getElementById("actionLoad").addEventListener("click", function () {
+            var target = document.getElementById("wert");
+            //load(target);
+            idb.load(target);
+        });
+
+    </script>
+
+</body>
+</html>

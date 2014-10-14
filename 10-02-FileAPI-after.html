@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>10 | Native Integration</title>
+</head>
+<body>
+    <h1>Dateien lesen</h1>
+
+    <input type="file" id="datei" />
+    <div id="output"></div>
+
+    <script>
+        var element = document.querySelector("#datei");
+        element.addEventListener("change", function (evt) {
+            var files = evt.target.files;
+            var f = files[0];
+
+            console.dir(f);
+
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var text = e.target.result;
+                document.querySelector("#output").innerText = text;
+            }
+            reader.readAsText(f);
+        })
+    </script>
+
+</body>
+</html>

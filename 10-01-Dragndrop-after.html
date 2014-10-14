@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>10 | Native Integration</title>
+    <style>
+        .droparea {
+            width: 200px;
+            height: 200px;
+            border-style: dashed;
+            border-radius: 20px;
+            background-color: lightgrey;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Drag & Drop</h1>
+
+    <img id="source" src="media/html5.png" />
+
+    <div id="target" class="droparea">hier ablegen...</div>
+
+    <script>
+
+        var imageElement = document.querySelector("#source");
+        imageElement.addEventListener("dragstart", function (evt) {
+            evt.dataTransfer.effectAllowed = "copy";
+            evt.dataTransfer.dropEffect = "copy";
+            evt.dataTransfer.setData("Text", "Das HTML5 Logo als Bild");
+        });
+
+        var divElement = document.querySelector("#target");
+
+        divElement.addEventListener("dragenter", function (evt) {
+            evt.preventDefault();
+        });
+
+        divElement.addEventListener("dragover", function (evt) {
+            //evt.preventDefault();
+        });
+
+        divElement.addEventListener("drop", function (evt) {
+            var text = evt.dataTransfer.getData("Text");
+            divElement.innerText = text;
+        })
+
+
+
+    </script>
+
+</body>
+</html>
